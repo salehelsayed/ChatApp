@@ -11,6 +11,12 @@ A modern Android chat application that enables users to interact with multiple A
 - 💾 Local message history storage
 - 🔄 Smooth message synchronization
 - ⚡ Efficient message rendering with RecyclerView
+- 🔒 Enhanced Security Features:
+  - Message encryption using Android Keystore
+  - Biometric authentication
+  - Input sanitization
+  - Secure API key storage
+  - Privacy mode with session management
 
 ## Technical Stack
 
@@ -26,6 +32,86 @@ A modern Android chat application that enables users to interact with multiple A
   - OkHttp for network requests
   - Room for local database
   - ViewBinding for view handling
+  - AndroidX Security Crypto for encryption
+  - AndroidX Biometric for authentication
+
+## Security Features
+
+### Message Encryption
+- All messages are encrypted using AES/GCM encryption
+- Encryption keys are securely stored in Android Keystore
+- Messages are automatically encrypted before storage and decrypted when displayed
+- Zero-knowledge encryption implementation
+
+### Biometric Authentication
+- Supports fingerprint and face recognition (device-dependent)
+- Required for accessing chat history
+- Automatic session management
+- Authentication is cleared when app is paused
+- Fallback options for devices without biometric capabilities
+
+### Data Protection
+- Input sanitization to prevent XSS and injection attacks
+- Secure API key storage using `secrets.properties`
+- Automatic message sanitization
+- Privacy mode with session management
+- Secure message display
+
+### Best Practices
+- No hardcoded sensitive information
+- Proper exception handling for security operations
+- Regular security state validation
+- Secure error messages
+- Protection against SQL injection
+
+## Security Setup
+
+1. Biometric Authentication:
+```kotlin
+// Enable biometric authentication in your app settings
+// The app will automatically prompt for authentication when required
+```
+
+2. API Key Security:
+```properties
+# In secrets.properties (create this file, do not commit to git)
+OPENAI_API_KEY=your_api_key_here
+```
+
+3. Message Encryption:
+```kotlin
+// Messages are automatically encrypted/decrypted
+// No additional setup required
+```
+
+4. Privacy Mode:
+```kotlin
+// Enabled by default
+// Requires authentication after app pause
+// Automatic session management
+```
+
+## Security Considerations
+
+1. **API Key Storage**:
+   - Store your OpenAI API key in `secrets.properties`
+   - Never commit this file to version control
+   - Add `secrets.properties` to `.gitignore`
+
+2. **Message Security**:
+   - All messages are automatically encrypted
+   - Encryption keys are securely stored in Android Keystore
+   - Messages are only decrypted when displayed
+
+3. **Authentication**:
+   - Biometric authentication is required by default
+   - Session is cleared when app is paused
+   - Re-authentication required after session timeout
+
+4. **Data Protection**:
+   - All user input is sanitized
+   - Protection against XSS and injection attacks
+   - Secure error handling
 
 ## Setup
 
