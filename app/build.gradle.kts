@@ -60,4 +60,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Security dependencies
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
+    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha05")
 }

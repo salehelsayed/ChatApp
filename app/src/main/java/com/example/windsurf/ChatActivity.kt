@@ -1,12 +1,14 @@
 package com.example.windsurf
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.windsurf.adapters.MessageAdapter
 import com.example.windsurf.databinding.ActivityChatBinding
 import com.example.windsurf.viewmodels.ChatViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
@@ -29,6 +31,10 @@ class ChatActivity : AppCompatActivity() {
         setupRecyclerView()
         setupMessageInput(contactId)
         observeMessages()
+        
+        if (viewModel.isAuthenticationRequired()) {
+            showAuthenticationDialog()
+        }
     }
 
     private fun setupToolbar(contactId: Int, contactRole: String) {
@@ -82,6 +88,37 @@ class ChatActivity : AppCompatActivity() {
                 binding.chatRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
             }
         }
+    }
+
+    private fun showAuthenticationDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Authentication Required")
+            .setMessage("Please authenticate to access the chat")
+            .setCancelable(false)
+            .setPositiveButton("Authenticate") { _, _ ->
+                authenticateUser()
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+                finish()
+            }
+            .show()
+    }
+
+    private fun authenticateUser() {
+        viewModel.authenticate(
+            onSuccess = {
+                Toast.makeText(this, "Authentication successful", Toast.LENGTH_SHORT).show()
+            },
+            onError = { error ->
+                Toast.makeText(this, "Authentication failed: $error", Toast.LENGTH_LONG).show()
+                finish()
+            }
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.clearAuthentication()
     }
 
     override fun onSupportNavigateUp(): Boolean {
