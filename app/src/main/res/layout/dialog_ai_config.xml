@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Configure AI Role"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/roleInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/roleInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter AI role (e.g., 'Math Teacher', 'Best Friend')"
+            android:inputType="text"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
